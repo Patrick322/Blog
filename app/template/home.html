@@ -1,8 +1,33 @@
-{% extends "post.html" %}
-{% block content %}
-    {% for posts in posts %}
-        <h1>{{ post.title }}</h1>
-        <p>By {{ post.author }} on {{post.date_posted}}</p>
-        <p>{{ post.content }}</p>
-    {% endfor %} 
-{% endblock content %} 
+{% extends 'layout.html'%}
+{%block content%}
+<div class="card bg-light text-center p-3 shadow-sm mb-5 bg-white rounded">
+  <blockquote class="blockquote mb-0">
+    <p>&ldquo;{{quote.quote}}&rdquo;</p>
+    <footer class="blockquote-footer">
+      <small>
+        <cite title="Source Title">{{quote.author}}</cite>
+      </small>
+    </footer>
+  </blockquote>
+</div>
+<div class="row">
+  {%for post in posts%}
+  <div class="col-md-6">
+    <div class="card mb-3 blog_card shadow-sm  mb-5 bg-white rounded">
+      <div class="row no-gutters">
+        <div class="col-sm-8">
+          <div class="card-body">
+            <h5 class="card-title"><a href="{{url_for('posts.post',post_id = post.id)}}">{{post.title}}</a></h5>
+            <p class="card-text">{{post.summary}}</p>
+            <p class="card-text d-inline"><small class="text-muted">Last updated
+                {{post.date_posted.strftime("%d %b, %Y")}}</small></p>
+            <p class="card-text d-inline mx-5"><small class="text-muted">By {{post.author.username}}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor%}
+</div>
+
